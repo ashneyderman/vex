@@ -22,11 +22,14 @@ defimpl Vex.Extract, for: List do
 end
 
 defimpl Vex.Extract, for: Map do
-  def settings(map) do
-    Map.get(map, :_vex)
+  def settings(data) do
+    Map.get data, :_vex
   end
-  def attribute(map, name) do
-    Map.get(map, name)
+  def attribute(data, name) when is_atom(name) do
+    attribute(data, to_string(name))
+  end
+  def attribute(data, name) do
+    Map.get data, name
   end
 end
 
